@@ -1,0 +1,20 @@
+{
+  "name": "ipfs-for-car",
+  "version": "0.0.0",
+  "description": "Get an in-memory IPFS instance loaded with a car file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (https://www.mikealrogers.com/)",
+  "license": "(Apache-2.0 AND MIT)",
+  "devDependencies": {
+    "standard": "^14.3.1"
+  },
+  "dependencies": {
+    "datastore-car": "^1.1.2",
+    "ipfs": "^0.40.0",
+    "ipfs-repo": "^0.30.1"
+  }
+}
