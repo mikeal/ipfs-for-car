@@ -23,14 +23,17 @@ const getRepo = () => {
 
 const getIPFS = async () => {
   const repo = getRepo()
-  const node = await IPFS.create({ repo, offline: true, silent: true })
+  const node = await IPFS.create({ repo, offline: true, start: false })
   return node
 }
 
 const main = async stream => {
   const ipfs = await getIPFS()
   const car = await CarDatastore.readStreamComplete(stream)
+  let first = true
   for await (const { key, value } of car.query()) {
+    if (first) console.log({ key })
+    first = false
     await ipfs.block.put(value, key)
   }
   return ipfs
@@ -38,12 +41,12 @@ const main = async stream => {
 
 module.exports = main
 
-/*
 const fs = require('fs')
 const _run = async () => {
   const ipfs = await main(fs.createReadStream('fast-ai-nlp-0.car'))
   console.log('done')
+  const block = await ipfs.block.get('bafyreiec5aigscqhrvctqugyrox5hsjyar624aegy3ooq75usntmffz2hq')
+  console.log({ block })
   ipfs.stop()
 }
 _run()
-*/
