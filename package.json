@@ -1,6 +1,6 @@
 {
   "name": "ipfs-for-car",
-  "version": "0.0.0",
+  "version": "0.0.0-dev",
   "description": "Get an in-memory IPFS instance loaded with a car file",
   "main": "index.js",
   "scripts": {
