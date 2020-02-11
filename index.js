@@ -1,6 +1,7 @@
 const MemoryStore = require('interface-datastore').MemoryDatastore
 const Repo = require('ipfs-repo')
 const IPFS = require('ipfs')
+const CID = require('cids')
 const CarDatastore = require('datastore-car')
 
 const getRepo = () => {
@@ -33,13 +34,13 @@ const main = async stream => {
   const car = await CarDatastore.readStreamComplete(stream)
   for await (const { key, value } of car.query()) {
     if (!first) first = key
-    await ipfs.block.put(value, { cid: key })
+    await ipfs.block.put(value, { cid: new CID(key) })
   }
   return ipfs
 }
 
 module.exports = main
-
+/*
 const fs = require('fs')
 const _run = async () => {
   const ipfs = await main(fs.createReadStream('fast-ai-nlp-0.car'))
@@ -49,4 +50,4 @@ const _run = async () => {
   ipfs.stop()
 }
 _run()
-
+*/
