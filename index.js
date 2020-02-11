@@ -7,7 +7,7 @@ const CarDatastore = require('datastore-car')
 const getRepo = () => {
   const repo = new Repo('inmem',
     {
-      lock: 'memory',
+      lock: { lock: () => ({ close: () => {} }) },
       autoMigrate: false,
       storageBackends:
       {
@@ -25,7 +25,7 @@ const getRepo = () => {
 const getIPFS = async () => {
   const repo = getRepo()
   const node = await IPFS.create({ repo, offline: true, start: false, silent: true })
-  node.clearAll = () => repo.datastore.data = {}
+  node.clearAll = () => { repo.datastore.data = {} }
   return node
 }
 
