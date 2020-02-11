@@ -25,6 +25,7 @@ const getRepo = () => {
 const getIPFS = async () => {
   const repo = getRepo()
   const node = await IPFS.create({ repo, offline: true, start: false, silent: true })
+  node.clearAll = () => repo.datastore.data = {}
   return node
 }
 
@@ -47,6 +48,7 @@ const _run = async () => {
   console.log('first', first)
   const block = await ipfs.block.get(first)
   console.log({ block })
+  ipfs.clearAll()
   ipfs.stop()
 }
 _run()
